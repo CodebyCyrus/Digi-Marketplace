@@ -11,7 +11,7 @@ export default buildConfig({
     admin: "/sell",
   },
   admin: {
-    user: "users",
+    // user: "users",
     bundler: webpackBundler(),
     meta: {
       titleSuffix: "- DigiMarket",
