@@ -45,7 +45,7 @@ export default function Home() {
           </div>
         </div>
 
-        {/* {List Products} */}
+        {/* TODO {List Products} */}
       </MaxWidthWrapper>
       <section className="border-t border-gray-200 bg-gray-50">
         <MaxWidthWrapper className="py-20">
