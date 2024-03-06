@@ -1,6 +1,6 @@
 import express from "express";
 import { getPayloadClient } from "./get-payload";
-import { nextApp, nextHandler } from "./next-utiles";
+import { nextApp, nextHandler } from "./next-utils";
 
 const app = express();
 const PORT = Number(process.env.PORT) || 3000;
