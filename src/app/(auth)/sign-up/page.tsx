@@ -10,16 +10,13 @@ import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import {
+  AuthCredentialValidator,
+  TAuthCredentialValidator,
+} from "@/lib/validators/account-credentials-validator";
 
 const Page = () => {
-  const AuthCredentialValidator = z.object({
-    email: z.string().email(),
-    password: z
-      .string()
-      .min(8, { message: "Password must be at least 8 characters long." }),
-  });
-
-  type TAuthCredentialValidator = z.infer<typeof AuthCredentialValidator>;
+  //added to lib validators
 
   const {
     register,
