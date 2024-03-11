@@ -32,8 +32,6 @@ const Page = () => {
     resolver: zodResolver(AuthCredentialValidator),
   });
 
-  const router = useRouter();
-
   const { mutate, isLoading } = trpc.auth.signIn.useMutation({
     onError: (err) => {
       if (err.data?.code === "CONFLICT") {
