@@ -32,27 +32,34 @@ const Page = () => {
     resolver: zodResolver(AuthCredentialValidator),
   });
 
-  const { mutate, isLoading } = trpc.auth.signIn.useMutation({
-    onError: (err) => {
-      if (err.data?.code === "CONFLICT") {
-        toast.error("This email is already in use. Sign in instead?");
+  const { mutate: signIn, isLoading } = trpc.auth.signIn.useMutation({
+    onSuccess: () => {
+      toast.success("Signed in successfully");
+
+      router.refresh();
+
+      if (origin) {
+        router.push(`/${origin}`);
         return;
       }
-      if (err instanceof ZodError) {
-        toast.error(err.issues[0].message);
+
+      if (isSeller) {
+        router.push("/sell");
         return;
       }
-      toast.error("Something went wrong. Please try again later.");
+
+      router.push("/");
     },
-    onSuccess: ({ sentToEmail }) => {
-      toast.success(`Verification email sent to ${sentToEmail}.`);
-      router.push("/verify-email?to=" + sentToEmail);
+    onError: (err) => {
+      if (err.data?.code === "UNAUTHORIZED") {
+        toast.error("Invalid Email or Password");
+      }
     },
   });
 
   const onSubmit = ({ email, password }: TAuthCredentialValidator) => {
     // send this data to the server
-    mutate({ email, password });
+    signIn({ email, password });
   };
 
   return (
