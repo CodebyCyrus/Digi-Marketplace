@@ -10,8 +10,11 @@ import {
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
 import Link from "next/link";
+import { useAuth } from "@/hooks/use-auth";
 
 const UserAccountNav = ({ user }: { user: User }) => {
+  const { signOut } = useAuth();
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild className="overflow-visible">
@@ -29,7 +32,9 @@ const UserAccountNav = ({ user }: { user: User }) => {
         <DropdownMenuItem asChild>
           <Link href="/sell">Seller Dashboard</Link>
         </DropdownMenuItem>
-        <DropdownMenuItem className="cursor-pointer">Log out</DropdownMenuItem>
+        <DropdownMenuItem className="cursor-pointer" onClick={signOut}>
+          Log out
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );
